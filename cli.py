@@ -53,11 +53,11 @@ class BqCli(cmd.Cmd):
         self.build_serial_com()
 
     def do_baud_rate(self, arg):
-        self.port = int(arg)
+        self.baudrate = int(arg)
         self.build_serial_com()
 
     def do_timeout(self, arg):
-        self.port = float(arg)
+        self.timeout = float(arg)
         self.build_serial_com()
 
     def do_serial_number(self, arg):
@@ -197,7 +197,7 @@ class BqCli(cmd.Cmd):
             port=self.port, baudrate=self.baudrate, timeout=self.timeout)
 
     def write_read(self, message: str) -> bytes:
-        self.serial.write(bytes(message, 'utf-8'))
+        self.serial.write(bytes(message, 'ascii'))
         time.sleep(0.05)
         data = self.serial.readline()
         return data
